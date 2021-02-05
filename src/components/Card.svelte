@@ -51,15 +51,15 @@
   </div>
   <br />
   {#if model != ""}
-    <div class="flex flex-col md:flex-row justify-evenly w-full">
-      <img src={`/assets/${model.icon}.svg`} alt={model.description} />
+    <div class="flex flex-row justify-evenly w-full">
+      <img class="" src={`/assets/${model.icon}.svg`} alt={model.description} />
       <div class="flex-col justify-center content-center text-center">
         <h1 class="text-2xl font-bold">
           {model.temperature}°C
         </h1>
         <h2 class="text-lg font-semibold">{model.description}</h2>
       </div>
-      <img src={`/assets/${model.icon}.svg`} alt={model.description} />
+      <img class="" src={`/assets/${model.icon}.svg`} alt={model.description} />
     </div>
   {/if}
 </div>
