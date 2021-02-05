@@ -2,17 +2,13 @@
   import axios from "axios";
 
   import Search from "./Search.svelte";
+  import Display from "./Dislpay.svelte";
 
   import { WeatherModel } from "../weather_model";
 
   $: search = "";
-  $: model = "";
-
-  function getSvg() {
-    let imgUrl = `/assets/${model.icon}.svg`;
-    console.log(imgUrl);
-    return imgUrl;
-  }
+  $: model = new WeatherModel();
+  $: gotData = false;
 
   function getWeather() {
     axios
@@ -28,6 +24,7 @@
         let icon = response.data.weather[0].id;
 
         model = new WeatherModel(city, temp, description, icon);
+        gotData = true;
       })
       .catch(function (error) {
         // handle error
@@ -50,16 +47,11 @@
     >
   </div>
   <br />
-  {#if model != ""}
-    <div class="flex flex-row justify-evenly w-full">
-      <img class="" src={`/assets/${model.icon}.svg`} alt={model.description} />
-      <div class="flex-col justify-center content-center text-center">
-        <h1 class="text-2xl font-bold">
-          {model.temperature}°C
-        </h1>
-        <h2 class="text-lg font-semibold">{model.description}</h2>
-      </div>
-      <img class="" src={`/assets/${model.icon}.svg`} alt={model.description} />
-    </div>
+  {#if gotData}
+    <Display {model} />
+  {:else}
+    <h2 class="text-center w-full text-lg font-semibold">
+      Enter a city to get weather data
+    </h2>
   {/if}
 </div>
